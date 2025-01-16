@@ -2,14 +2,11 @@
 name = "stock-market-etl"
 version = "0.1.0"
 description = "ETL for stock market data"
-authors = [
-    {name = "Eric Dasse",email = "christ.gououi@gmail.com"}
-]
-license = {text = "MIT"}
+authors = [{ name = "Eric Dasse", email = "christ.gououi@gmail.com" }]
+license = { text = "MIT" }
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-]
+requires-python = ">=3.10,<3.13"
+dependencies = []
 
 
 [build-system]
