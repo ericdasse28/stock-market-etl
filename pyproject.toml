@@ -1,0 +1,17 @@
+[project]
+name = "stock-market-etl"
+version = "0.1.0"
+description = "ETL for stock market data"
+authors = [
+    {name = "Eric Dasse",email = "christ.gououi@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
