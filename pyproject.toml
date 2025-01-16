@@ -6,7 +6,7 @@ authors = [{ name = "Eric Dasse", email = "christ.gououi@gmail.com" }]
 license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
-dependencies = []
+dependencies = ["apache-airflow (>=2.10.4,<3.0.0)"]
 
 
 [build-system]
