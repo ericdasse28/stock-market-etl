@@ -12,3 +12,7 @@ dependencies = ["apache-airflow (>=2.10.4,<3.0.0)", "python-dotenv (>=1.0.1,<2.0
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+
