@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import os
-from airflow import DAG, task
+from airflow import DAG
+from airflow.decorators import task
 from airflow.providers.sqlite.hooks.sqlite import SqliteHook
 from dotenv import load_dotenv
 import pandas as pd
