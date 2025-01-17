@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
-import os
 from airflow import DAG
 from airflow.decorators import task
 from airflow.providers.sqlite.hooks.sqlite import SqliteHook
 from dotenv import load_dotenv
 import pandas as pd
 import requests
+from airflow.models import Variable
 
 load_dotenv()
 
@@ -23,10 +23,10 @@ with DAG(
         """Extract stock market data from Polygon API."""
 
         stock_ticker = "AMZN"
-        polygon_api_key = os.environ["POLYGON_API_KEY"]
+        polygon_api_key = Variable.get("POLYGON_API_KEY")
         ds = context.get("ds")
 
-        url = f"<https://api.polygon.io/v1/open-close/{stock_ticker}/{ds}?adjusted=true&apiKey={polygon_api_key}>"  # noqa
+        url = f"https://api.polygon.io/v1/open-close/{stock_ticker}/{ds}?adjusted=true&apiKey={polygon_api_key}"  # noqa
         response = requests.get(url)
         # Return the raw data
         return response.json()
