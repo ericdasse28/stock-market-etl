@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import os
 from airflow import DAG, task
+from airflow.providers.sqlite.hooks.sqlite import SqliteHook
 from dotenv import load_dotenv
 import pandas as pd
 import requests
@@ -30,7 +31,7 @@ with DAG(
         return response.json()
 
     @task
-    def flatten_market_data(polygon_response, **context):
+    def flatten_market_data(polygon_response, **context) -> pd.DataFrame:
         # Create a list of headers and a list to store
         # the normalized data in
         columns = {
@@ -58,5 +59,18 @@ with DAG(
         )
         return flattened_dataframe
 
+    @task
+    def load_market_data(flattened_dataframe: pd.DataFrame):
+        market_database_hook = SqliteHook("market_database_conn")
+        market_database_conn = market_database_hook.get_sqlalchemy_engine()
+        # Load the table to SQLite, append if it exists
+        flattened_dataframe.to_sql(
+            name="market_data",
+            con=market_database_conn,
+            if_exists="append",
+            index=False,
+        )
+
     raw_market_data = hit_polygon_api()
-    flatten_market_data(raw_market_data)
+    transformed_market_data = flatten_market_data(raw_market_data)
+    load_market_data(transformed_market_data)
